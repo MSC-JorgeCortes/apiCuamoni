@@ -1,4 +1,4 @@
-# treenath
+# TreeNah
 
 # README.md
 # 🌿 API de TreeNath
