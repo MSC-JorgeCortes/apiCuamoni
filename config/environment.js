@@ -21,8 +21,7 @@ const config = {
   // 🔐 Autenticación
   auth: {
     jwt: {
-      secret: process.env.JWT_SECRET || 'secret_key_plantas_papaloapan_fallback',
-      expiresIn: process.env.JWT_EXPIRES_IN || '7d'
+      secret: process.env.JWT_SECRET || 'secret_key_plantas_papaloapan_fallback'
     }
   },
   

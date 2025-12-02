@@ -4,7 +4,7 @@ import { Especie } from '../config/database.js';
 const especiesData = [
   {
     nombreCientifico: "Platanus mexicana",
-    nombreComun: "Macuil",
+    nombreComun: "Álamo",
     familia: "Platanaceae",
     origen: "Endémico de la cuenca del Papaloapan",
     descripcion: "Árbol de gran tamaño que crece en riberas de ríos, con corteza que se desprende en placas. Muy apreciado por su sombra y madera.",
@@ -1838,6 +1838,78 @@ const especiesData = [
     epocaFructificacion: "Julio - Septiembre",
     usosTradicionales: ["Madera preciosa", "Ornamental", "Sombra"],
     estadoConservacion: "Vulnerable"
+  },
+  {
+    nombreCientifico: "Taxodium mucronatum",
+    nombreComun: "Ahuehuete",
+    familia: "Cupressaceae",
+    origen: "Nativo de México",
+    descripcion: "Árbol emblemático de México, conocido por su longevidad y resistencia a inundaciones.",
+    caracteristicas: {
+      alturaMaxima: 30,
+      diametroMaximo: 3.0,
+      tipoCrecimiento: "Lento",
+      longevidad: "Perenne"
+    },
+    requisitosAmbientales: {
+      tipoSuelo: ["Inundable", "Arcilloso"],
+      phSuelo: { min: 6.0, max: 8.0 },
+      exposicionSolar: "Sol pleno",
+      humedadAmbiente: "Alta",
+      temperatura: { min: 15, max: 30 }
+    },
+    cuidadosPorEdad: [
+      {
+        etapa: "Plántula",
+        rangoEdadMeses: { min: 1, max: 12 },
+        riego: { cantidadAgua: "500-700ml", frecuencia: "Diario", observaciones: "Requiere suelos constantemente húmedos" },
+        fertilizacion: { tipoFertilizante: "Orgánico", cantidad: "200g", frecuencia: "Bimestral", epocaAplicacion: "Todo el año" },
+        poda: { requiere: false },
+        trasplante: { requiere: true, epocaRecomendada: "Inicio lluvias", tipoMaceta: "Contenedor grande" },
+        protecciones: ["Adaptado a inundaciones"]
+      }
+    ],
+    plagasComunes: ["Escasas"],
+    epocaFloracion: "Marzo - Mayo",
+    epocaFructificacion: "Agosto - Octubre",
+    usosTradicionales: ["Ornamental", "Sombra", "Cultural"],
+    estadoConservacion: "Preocupación menor"
+  },
+  {
+    nombreCientifico: "Zanthoxylum fagara",
+    nombreComun: "Fagara",
+    familia: "Rutaceae",
+    origen: "Nativo de la región",
+    descripcion: "Árbol pequeño con espinas y frutos aromáticos, utilizado en medicina tradicional.",
+    caracteristicas: {
+      alturaMaxima: 8,
+      diametroMaximo: 0.3,
+      tipoCrecimiento: "Moderado",
+      longevidad: "Perenne"
+    },
+    requisitosAmbientales: {
+      tipoSuelo: ["Bien drenado", "Fértil"],
+      phSuelo: { min: 6.0, max: 7.5 },
+      exposicionSolar: "Sol pleno a media sombra",
+      humedadAmbiente: "Media",
+      temperatura: { min: 15, max: 35 }
+    },
+    cuidadosPorEdad: [
+      {
+        etapa: "Plántula",
+        rangoEdadMeses: { min: 1, max: 6 },
+        riego: { cantidadAgua: "250-400ml", frecuencia: "Cada 3 días", observaciones: "Riego regular" },
+        fertilizacion: { tipoFertilizante: "Balanceado", cantidad: "150g", frecuencia: "Bimestral", epocaAplicacion: "Crecimiento" },
+        poda: { requiere: true, tipo: "Formación" },
+        trasplante: { requiere: true, epocaRecomendada: "Inicio lluvias", tipoMaceta: "Contenedor mediano" },
+        protecciones: ["Protección contra vientos"]
+      }
+    ],
+    plagasComunes: ["Escasas"],
+    epocaFloracion: "Abril - Junio",
+    epocaFructificacion: "Julio - Septiembre",
+    usosTradicionales: ["Ornamental", "Sombra", "Madera"],
+    estadoConservacion: "Preocupación menor"
   }
   // Continuar con las demás especies...
 ];

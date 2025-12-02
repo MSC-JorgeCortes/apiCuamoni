@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node --no-deprecation server.js",
     "dev": "nodemon --no-deprecation server.js",
-    "init-atlas": "node --no-deprecation scripts/init-atlas.js",
+    "init-atlas": "node --no-deprecation  scripts/init-atlas.js",
     "create-collections": "node --no-deprecation scripts/01-create-collections.js",
     "create-indexes": "node --no-deprecation scripts/02-create-indexes.js",
     "insert-especies": "node --no-deprecation scripts/03-insert-especies.js",
