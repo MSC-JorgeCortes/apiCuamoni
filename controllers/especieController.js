@@ -9,7 +9,7 @@ class EspecieController {
   obtenerTodasEspecies = asyncHandler(async (req, res, next) => {
     const { 
       pagina = 1, 
-      limite = 20, 
+      limite = 50, 
       familia, 
       origen,
       sortBy = 'nombreComun',
