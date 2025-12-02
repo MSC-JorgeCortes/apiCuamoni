@@ -1,7 +1,7 @@
 # TreeNah
 
 # README.md
-# 🌿 API de TreeNath
+# 🌿 API de CUAMONI
 
 API RESTful para el sistema de control y seguimiento de plantas endémicas de la cuenca del Papaloapan, Veracruz.
 
