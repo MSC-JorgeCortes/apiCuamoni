@@ -9,6 +9,7 @@ const router = express.Router();
 // 🔍 GET - Obtener recursos (consultas)
 router.get('/', especieController.obtenerTodasEspecies);
 router.get('/buscar', especieController.buscarEspecies);
+router.get('/{id}', especieController.obtenerEspeciePorId);
 router.get('/estadisticas', especieController.obtenerEstadisticasEspecies);
 router.get('/categorias', especieController.obtenerCategorias);
 router.get('/:especieId', especieController.obtenerEspecieDetallada);

@@ -618,6 +618,20 @@ class EspecieController {
       data: { cuidadoId }
     });
   });
+
+  // obtener especia por id
+  obtenerEspeciePorId = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const especie = await Especie.findById(id);
+
+    if (!especie) {
+      throw new AppError('Especie no encontrada', 404);
+    }
+    res.json({
+      success: true,
+      data: especie
+    });
+  });
 }
 
 export default new EspecieController();
