@@ -1,8 +1,7 @@
 # TreeNah
 
 # README.md
-# 🌿 API de CUAMONI
-
+# <img width="120" height="110" alt="image" src="https://github.com/user-attachments/assets/6d16edd8-fc65-4d71-a352-d5665d5c9b19" />   API de CUAMONI 
 API RESTful para el sistema de control y seguimiento de plantas endémicas de la cuenca del Papaloapan, Veracruz.
 
 ## 🚀 Características
