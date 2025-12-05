@@ -53,6 +53,18 @@ tareaSchema.pre('save', function(next) {
 });
 
 // Método estático
+tareaSchema.statics.obtenerTareasConPaginacion = function(filtro, pagina = 1, limite = 50) {
+  const skip = (pagina - 1) * limite;
+  console.log('Obteniendo tareas con filtro:', filtro, 'Página:', pagina, 'Límite:', limite);
+  return this.find(filtro)
+    .populate('plantaId', 'nombrePersonalizado especieId')
+    .populate('plantaId.especieId', 'nombreComun')
+    .sort({ fechaProgramada: 1, prioridad: -1 })
+    .skip(skip)
+    .limit(limite);
+}; 
+
+
 tareaSchema.statics.obtenerTareasProximas = function(usuarioId, dias = 3) {
   const fechaLimite = new Date();
   fechaLimite.setDate(fechaLimite.getDate() + dias);

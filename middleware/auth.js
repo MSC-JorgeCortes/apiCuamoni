@@ -10,9 +10,15 @@ export const auth = async (req, res, next) => {
     if (!token) {
       throw new AppError('Acceso denegado. Token no proporcionado.', 401);
     }
-
-    const decoded = jwt.verify(token, config.jwt.secret);
+  
+    const decoded = jwt.verify(token, config.auth.jwt.secret); 
+       
     const usuario = await Usuario.findById(decoded.id).select('-password');
+    //explicame esta linea 16 
+    // Esta línea busca en la base de datos un usuario cuyo ID coincida con el ID decodificado del token JWT.
+    // El método select('-password') excluye el campo de la contraseña del usuario para que no sea devuelto ni expuesto.
+    // Esto es una medida de seguridad para proteger la información sensible del usuario.
+    //pero de donde saco el id decodificado del token jwt?
     
     if (!usuario) {
       throw new AppError('Token inválido - usuario no encontrado', 401);

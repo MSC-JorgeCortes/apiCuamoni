@@ -1,5 +1,7 @@
 import 'dotenv/config';
 
+console.log('⚙️  Cargando configuración del entorno...', process.env.JWT_SECRET);
+
 const config = {
   // 🌐 Servidor
   server: {
@@ -21,7 +23,7 @@ const config = {
   // 🔐 Autenticación
   auth: {
     jwt: {
-      secret: process.env.JWT_SECRET || 'secret_key_plantas_papaloapan_fallback'
+      secret: process.env.JWT_SECRET || 'tu_jwt_secret_super_seguro_aqui_minimo_32_caracteres'
     }
   },
   

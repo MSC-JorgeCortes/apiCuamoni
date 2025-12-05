@@ -6,39 +6,87 @@ import { AppError, asyncHandler } from '../middleware/errorHandler.js';
 
 class TareaController {
   
-  // 🔍 Obtener tareas de usuario
-  obtenerTareasUsuario = asyncHandler(async (req, res, next) => {
-    const { usuarioId } = req.params;
-    const { estado, tipo, pagina = 1, limite = 20 } = req.query;
+  // 🔍 Obtener tareas de usuario dependiendo de la fecha del ultima tarea
+  obtenerTareasDeUsuario = asyncHandler(async (req, res, next) => {
+    const { usuarioId, estado, tipo, pagina = 1, limite = 50 } = req.body;
     
-    let filtro = { usuarioId };
-    
-    if (estado) filtro.estado = estado;
-    if (tipo) filtro.tipoTarea = tipo;
+    /*  el id del usuario es  68f4b63957bf712d1b0ba66c
+      Ejemplo de solicitud:
+      POST /api/tareas/usuario
+      Cuerpo:
+       
+      {
+        "usuarioId": "68f4b63957bf712d1b0ba66c",
+        "estado": "Pendiente", // Opcional: Filtrar por estado de la tarea
+        "tipo": "Riego",      // Opcional: Filtrar por tipo de tarea
+        "pagina": 1,         // Número de página para paginación (opcional, por defecto 1)
+        "limite": 20         // Número de tareas por página (opcional, por defecto 50)
+      }
+      
 
-    const skip = (pagina - 1) * limite;
 
-    const tareas = await Tarea.find(filtro)
-      .populate('plantaId', 'nombrePersonalizado especieId')
-      .populate('plantaId.especieId', 'nombreComun')
-      .sort({ fechaProgramada: 1, prioridad: -1 })
-      .skip(skip)
-      .limit(parseInt(limite));
 
-    const total = await Tarea.countDocuments(filtro);
+      Respuesta:
+        {
+          "success": true,  
+          "data": [Array de objetos de tareas],
+          "total": Número total de tareas que coinciden con el filtro,
+          "paginacion": {
+            "pagina": Número de página actual,
+            "limite": Número de tareas por página,
+            "total": Número total de tareas,
+            "paginas": Número total de páginas
+          }
+        }
+    */
+
+      
+    const filtros = { usuarioId };// Siempre filtrar por usuarioId
+
+    if (estado) {
+      filtros.estado = estado;
+    }
+    if (tipo) {
+      filtros.tipoTarea = tipo;
+    }
+    const opcionesPaginacion = {
+      pagina: parseInt(pagina, 10),
+      limite: parseInt(limite, 10)
+    };
+    // Realizar la consulta con paginación, utilizando el método estático del modelo Tarea
+    const resultado = await Tarea.obtenerTareasConPaginacion(filtros, opcionesPaginacion.pagina, opcionesPaginacion.limite);
+
+    console.log('Tareas obtenidas para el usuario:', resultado);
 
     res.json({
       success: true,
-      data: tareas,
-      total,
+      data: resultado.tareas,
+      total: resultado.total,
       paginacion: {
-        pagina: parseInt(pagina),
-        limite: parseInt(limite),
-        total,
-        paginas: Math.ceil(total / limite)
+        pagina: opcionesPaginacion.pagina,
+        limite: opcionesPaginacion.limite,
+        total: resultado.total,
+        paginas: Math.ceil(resultado.total / opcionesPaginacion.limite)
       }
     });
   });
+
+
+pruebaObtenerTareasDeUsuario = asyncHandler(async (req, res, next) => {
+    const { usuarioId } = req.body;
+    const tareas = await Tarea.find({ usuarioId })
+      .populate('plantaId', 'nombrePersonalizado especieId')
+      .populate('plantaId.especieId', 'nombreComun')
+      .sort({ fechaProgramada: 1, prioridad: -1 });
+    res.json({
+      success: true,
+      data: tareas
+    });
+  });
+
+
+
+
 
   // 🔍 Obtener tareas próximas
   obtenerTareasProximas = asyncHandler(async (req, res, next) => {
@@ -155,3 +203,4 @@ class TareaController {
 }
 
 export default new TareaController();
+

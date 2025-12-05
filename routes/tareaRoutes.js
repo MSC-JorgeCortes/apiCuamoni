@@ -5,8 +5,9 @@ import { auth } from '../middleware/auth.js';
 const router = express.Router();
 
 // 🔍 GET
-router.get('/usuario/:usuarioId', auth, tareaController.obtenerTareasUsuario);
-router.get('/usuario/:usuarioId/proximas', auth, tareaController.obtenerTareasProximas);
+router.post('/usuario', tareaController.obtenerTareasDeUsuario);
+router.post('/usuario/proximas',tareaController.obtenerTareasProximas);
+router.post('/usuario/prueba', tareaController.pruebaObtenerTareasDeUsuario);
 
 // 📝 POST
 router.post('/', auth, tareaController.crearTareaManual);
