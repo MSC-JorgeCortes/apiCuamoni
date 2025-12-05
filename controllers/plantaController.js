@@ -185,7 +185,30 @@ class PlantaController {
       data: nuevaPlanta
     });
   });
-
+  // que datos me devuelve al crear una planta?
+  /*
+    {
+      success: true,
+      message: 'Planta creada exitosamente',
+      data: {
+        _id: '648a1f4e2f8b9c0012345678',
+        usuarioId: '648a1e9c2f8b9c0012345677',
+        especieId: {
+          _id: '648a1d5b2f8b9c0012345676',
+          nombreComun: 'Guácimo blanco',
+          nombreCientifico: 'Inga vera'
+        },
+        nombrePersonalizado: 'mi macuilin hermoso',
+        fechaSiembra: '2024-01-15T00:00:00.000Z',
+        ubicacionSiembra: {
+          tipo: 'Jardin',
+          descripcion: 'Jardín de mi casa',
+          coordenadas: { type: 'Point', coordinates: [ -96.3514, 18.4589 ] },
+        }
+      }
+    }
+  */
+  
   // 📝 POST - Registrar crecimiento
   registrarCrecimiento = asyncHandler(async (req, res, next) => {
     const { plantaId } = req.params;

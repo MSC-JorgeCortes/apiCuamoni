@@ -19,7 +19,8 @@ const plantaSchema = new mongoose.Schema({
   },
   fechaSiembra: { 
     type: Date, 
-    required: true 
+    required: true,
+    default: Date.now
   },
   ubicacionSiembra: {
     tipo: {
@@ -102,11 +103,14 @@ plantaSchema.index({ usuarioId: 1 });
 plantaSchema.index({ especieId: 1 });
 plantaSchema.index({ "ubicacionSiembra.coordenadas": "2dsphere" });
 
-// Virtual para edad en meses
+//Virtual para edad en meses
 plantaSchema.virtual('edadMeses').get(function() {
+  console.log('fechaSiembra:', this.especieId);
   const diffMs = Date.now() - this.fechaSiembra.getTime();
   return Math.floor(diffMs / (1000 * 60 * 60 * 24 * 30));
 });
+
+
 
 plantaSchema.set('toJSON', { virtuals: true });
 

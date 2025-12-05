@@ -123,9 +123,20 @@ class AlertaService {
     const cuidados = especie.cuidadosPorEdad[0]; // Primer rango de edad
 
     if (cuidados && cuidados.riego) {
-      const proximoRiego = new Date();
+      const proximoRiego = new Date(Date.now() + cuidados.riego.frecuenciaDias * 24 * 60 * 60 * 1000);
       // Configurar próximo riego basado en la frecuencia
       planta.alertasConfiguradas.proximoRiego = proximoRiego;
+      await planta.save();
+    }
+    if (cuidados && cuidados.fertilizacion) {
+      const proximaFertilizacion = new Date(Date.now() + cuidados.fertilizacion.frecuencia * 24 * 60 * 60 * 1000);
+      // Configurar próxima fertilización (ejemplo: cada 30 días)
+      planta.alertasConfiguradas.proximaFertilizacion = proximaFertilizacion;
+      await planta.save();
+    }
+    if (cuidados && cuidados.poda && cuidados.poda.requiere) {
+      const proximaPoda = new Date(Date.now() + cuidados.poda.frecuencia * 24 * 60 * 60 * 1000); // Ejemplo: cada 90 días
+      planta.alertasConfiguradas.proximaPoda = proximaPoda;
       await planta.save();
     }
   }
@@ -140,7 +151,17 @@ class AlertaService {
     if (tipoTarea === 'Riego' && cuidados?.riego) {
       const proximoRiego = new Date();
       // Calcular próxima fecha basada en frecuencia
-      planta.alertasConfiguradas.proximoRiego = proximoRiego;
+      planta.alertasConfiguradas.proximoRiego = proximoRiego + cuidados.riego.frecuenciaDias * 24 * 60 * 60 * 1000;
+      await planta.save();
+    }
+    if (tipoTarea === 'Fertilización' && cuidados?.fertilizacion) {
+      const proximaFertilizacion = new Date();
+      planta.alertasConfiguradas.proximaFertilizacion = proximaFertilizacion + cuidados.fertilizacion.frecuencia * 24 * 60 * 60 * 1000;
+      await planta.save();
+    }
+    if (tipoTarea === 'Poda' && cuidados?.poda && cuidados.poda.requiere) {
+      const proximaPoda = new Date();
+      planta.alertasConfiguradas.proximaPoda = proximaPoda + cuidados.poda.frecuencia * 24 * 60 * 60 * 1000;
       await planta.save();
     }
   }

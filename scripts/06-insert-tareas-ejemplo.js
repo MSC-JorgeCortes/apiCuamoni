@@ -4,10 +4,11 @@ import { Tarea, Planta, Usuario } from '../config/database.js';
 async function insertTareasEjemplo() {
   console.log('📝 Creando tareas de ejemplo...');
 
-  try {
+   try{
     const admin = await Usuario.findOne({ email: "admin@plantaspapaloapan.com" });
     const plantas = await Planta.find({ usuarioId: admin._id });
 
+    
     if (plantas.length === 0) {
       console.log('   ⚠️  No hay plantas para asignar tareas');
       return;
