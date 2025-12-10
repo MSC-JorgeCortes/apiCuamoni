@@ -7,11 +7,6 @@ import { AppError, asyncHandler } from '../middleware/errorHandler.js';
 
 class UsuarioController {
 
-  listarUsuarios = (async (req, res, next) => {
-    res.json({
-      success: "holiis"
-    });
-  });
 
   // Registrar usuario
   registrarUsuario = (async (req, res, next) => {
