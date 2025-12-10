@@ -300,12 +300,16 @@ class EspecieController {
   crearEspecie = asyncHandler(async (req, res, next) => {
     const especieData = req.body;
 
+    // Verificar si ya existe una especie con el mismo nombre científico o común
     const especieExistente = await Especie.findOne({
-      nombreCientifico: especieData.nombreCientifico
+      $or: [
+        { nombreCientifico: especieData.nombreCientifico },
+        { nombreComun: especieData.nombreComun }
+      ]
     });
 
-    if (!especieExistente) {
-      throw new AppError('Ya existe una especie con este nombre científico', 400);
+    if (especieExistente) {
+      throw new AppError('Ya existe una especie con este nombre científico o común', 400);
     }
 
     const nuevaEspecie = new Especie(especieData);

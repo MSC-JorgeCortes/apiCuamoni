@@ -6,7 +6,34 @@ import SocialMediaService from '../services/socialMediaService.js';
 import { AppError, asyncHandler } from '../middleware/errorHandler.js';
 
 class UsuarioController {
-  
+
+  // Registrar usuario
+  registrarUsuario = asyncHandler(async (req, res, next) => {
+    const { nombre, email, } = req.body;
+
+    // Validar datos básicos
+    if (!nombre || !email ) {
+      throw new AppError('Nombre y email son requeridos', 400);
+    }
+
+    // Verificar si el usuario ya existe
+    const usuarioExistente = await Usuario.findOne({ email });
+    if (usuarioExistente) {
+      throw new AppError('El email ya está registrado', 400);
+    }
+
+    // Crear nuevo usuario (la contraseña se hashea automáticamente en el pre-save)
+    const nuevoUsuario = new Usuario({
+      nombre,
+      email,
+      password,
+      telefono
+    });
+
+    await nuevoUsuario.save();
+
+    });
+
   // 🔗 CONECTAR RED SOCIAL
   conectarRedSocial = asyncHandler(async (req, res, next) => {
     const { usuarioId } = req.params;
@@ -39,7 +66,7 @@ class UsuarioController {
     });
   });
 
-  // 🔓 DESCONECTAR RED SOCIAL - ESTE ES EL QUE FALTA
+  // 🔓 DESCONECTAR RED SOCIAL
   desconectarRedSocial = asyncHandler(async (req, res, next) => {
     const { usuarioId, redSocial } = req.params;
 

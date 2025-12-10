@@ -5,6 +5,9 @@ import { auth } from '../middleware/auth.js';
 
 const router = express.Router();
 
+// Nueva ruta para registro de usuario
+router.post('/registro', usuarioController.registrarUsuario);
+
 // 🔗 Rutas de Redes Sociales
 router.post('/:usuarioId/redes-sociales/conectar', usuarioController.conectarRedSocial);
 router.delete('/:usuarioId/redes-sociales/:redSocial', auth, usuarioController.desconectarRedSocial);
