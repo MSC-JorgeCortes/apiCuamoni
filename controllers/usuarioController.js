@@ -7,15 +7,14 @@ import { AppError, asyncHandler } from '../middleware/errorHandler.js';
 
 class UsuarioController {
 
-  listarUsuarios = asyncHandler(async (req, res, next) => {
-    
+  listarUsuarios = (async (req, res, next) => {
     res.json({
       success: "holiis"
     });
   });
 
   // Registrar usuario
-  registrarUsuario = asyncHandler(async (req, res, next) => {
+  registrarUsuario = (async (req, res, next) => {
     try {
       const { nombre, email } = req.body;
       // Verificar si el usuario ya existe
