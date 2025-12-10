@@ -7,6 +7,14 @@ import { AppError, asyncHandler } from '../middleware/errorHandler.js';
 
 class UsuarioController {
 
+  listarUsuarios = asyncHandler(async (req, res, next) => {
+    const usuarios = await Usuario.find().select('-password');
+    res.json({
+      success: true,
+      data: usuarios
+    });
+  });
+
   // Registrar usuario
   registrarUsuario = asyncHandler(async (req, res, next) => {
     try {
