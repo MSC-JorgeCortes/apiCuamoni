@@ -12,7 +12,7 @@ class UsuarioController {
     try {
       const { nombre, email } = req.body;
       // Verificar si el usuario ya existe
-      const usuarioExistente = await Usuario.findOne({ email });
+      const usuarioExistente = await Usuario.findOne({ email: email });
       if (usuarioExistente) {
         res.json({error:'El email ya está registrado'});
       }else{
