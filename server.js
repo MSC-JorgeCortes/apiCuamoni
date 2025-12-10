@@ -92,7 +92,7 @@ function initializeApp() {
   WebSocketService.inicializar(wss);
 
   // Rutas API (solo si BD está conectada)
-  app.use('/api/usuarios', usuarioRoutes);
+  app.use('/apis/usuarioss', usuarioRoutes);
   app.use('/api/especies', especieRoutes);
   app.use('/api/plantas', plantaRoutes);
   app.use('/api/tareas', tareaRoutes);
