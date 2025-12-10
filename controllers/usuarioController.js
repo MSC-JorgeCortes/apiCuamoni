@@ -23,21 +23,7 @@ class UsuarioController {
     } catch (error) {
       res.json({error: 'Error al registrar usuario'});
     }
-
-    
-
-
-    // Crear nuevo usuario (la contraseña se hashea automáticamente en el pre-save)
-    const nuevoUsuario = new Usuario({
-      nombre,
-      email,
-      password,
-      telefono
-    });
-
-    await nuevoUsuario.save();
-
-    });
+  });
 
   // 🔗 CONECTAR RED SOCIAL
   conectarRedSocial = asyncHandler(async (req, res, next) => {
