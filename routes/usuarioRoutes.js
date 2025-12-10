@@ -9,17 +9,17 @@ const router = express.Router();
 router.post('/registro', usuarioController.registrarUsuario);
 router.get('/lista', usuarioController.listarUsuarios);
 
-// 🔗 Rutas de Redes Sociales
-router.post('/:usuarioId/redes-sociales/conectar', usuarioController.conectarRedSocial);
-router.delete('/:usuarioId/redes-sociales/:redSocial', auth, usuarioController.desconectarRedSocial);
-router.put('/:usuarioId/redes-sociales/configuracion', auth, usuarioController.configurarPublicacionAutomatica);
-router.post('/:usuarioId/redes-sociales/publicar', auth, usuarioController.publicarEnRedes);
-router.get('/:usuarioId/redes-sociales/estadisticas', auth, usuarioController.obtenerEstadisticasRedes);
+// // 🔗 Rutas de Redes Sociales
+// router.post('/:usuarioId/redes-sociales/conectar', usuarioController.conectarRedSocial);
+// router.delete('/:usuarioId/redes-sociales/:redSocial', auth, usuarioController.desconectarRedSocial);
+// router.put('/:usuarioId/redes-sociales/configuracion', auth, usuarioController.configurarPublicacionAutomatica);
+// router.post('/:usuarioId/redes-sociales/publicar', auth, usuarioController.publicarEnRedes);
+// router.get('/:usuarioId/redes-sociales/estadisticas', auth, usuarioController.obtenerEstadisticasRedes);
 
-// 👤 Rutas básicas de usuario
-router.get('/:usuarioId', usuarioController.obtenerUsuario);
-router.put('/:usuarioId', auth, usuarioController.actualizarUsuario);
-router.get('/:usuarioId/plantas', auth, usuarioController.obtenerPlantasUsuario);
-router.get('/:usuarioId/estadisticas', auth, usuarioController.obtenerEstadisticas);
+// // 👤 Rutas básicas de usuario
+// router.get('/:usuarioId', usuarioController.obtenerUsuario);
+// router.put('/:usuarioId', auth, usuarioController.actualizarUsuario);
+// router.get('/:usuarioId/plantas', auth, usuarioController.obtenerPlantasUsuario);
+// router.get('/:usuarioId/estadisticas', auth, usuarioController.obtenerEstadisticas);
 
 export default router;
