@@ -9,18 +9,23 @@ class UsuarioController {
 
   // Registrar usuario
   registrarUsuario = asyncHandler(async (req, res, next) => {
-    const { nombre, email, } = req.body;
-
-    // Validar datos básicos
-    if (!nombre || !email ) {
-      throw new AppError('Nombre y email son requeridos', 400);
+    try {
+      const { nombre, email } = req.body;
+      // Verificar si el usuario ya existe
+      const usuarioExistente = await Usuario.findOne({ email });
+      if (usuarioExistente) {
+        res.json({error:'El email ya está registrado'});
+      }else{
+        const usuario = new Usuario({ nombre,email });
+        await usuario.save();
+        res.json({success:'Usuario registrado exitosamente'});
+      }
+    } catch (error) {
+      res.json({error: 'Error al registrar usuario'});
     }
 
-    // Verificar si el usuario ya existe
-    const usuarioExistente = await Usuario.findOne({ email });
-    if (usuarioExistente) {
-      throw new AppError('El email ya está registrado', 400);
-    }
+    
+
 
     // Crear nuevo usuario (la contraseña se hashea automáticamente en el pre-save)
     const nuevoUsuario = new Usuario({
