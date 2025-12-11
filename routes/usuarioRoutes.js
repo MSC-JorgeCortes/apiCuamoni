@@ -7,6 +7,7 @@ const router = express.Router();
 
 // Nueva ruta para registro de usuario
 router.post('/registro', usuarioController.registrarUsuario);
+router.get('/lista', usuarioController.listarUsuarios);
 
 
 // // 🔗 Rutas de Redes Sociales

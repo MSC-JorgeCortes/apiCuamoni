@@ -6,18 +6,18 @@ import { validarPlanta } from '../middleware/validation.js';
 const router = express.Router();
 
 // 🔍 GET
-router.get('/usuario/:usuarioId', auth, plantaController.obtenerPlantasUsuario);
-router.get('/:plantaId', auth, plantaController.obtenerPlantaDetallada);
-router.get('/usuario/:usuarioId/estadisticas', auth, plantaController.obtenerEstadisticas);
+router.get('/usuario/:usuarioId', plantaController.obtenerPlantasUsuario);
+router.get('/:plantaId', plantaController.obtenerPlantaDetallada);
+router.get('/usuario/:usuarioId/estadisticas', plantaController.obtenerEstadisticas);
 
 // 📝 POST
-router.post('/', auth, validarPlanta, plantaController.crearPlanta);
-router.post('/:plantaId/crecimiento', auth, plantaController.registrarCrecimiento);
+router.post('/', validarPlanta, plantaController.crearPlanta);
+router.post('/:plantaId/crecimiento', plantaController.registrarCrecimiento);
 
 // ✏️ PUT
-router.put('/:plantaId', auth, plantaController.actualizarPlanta);
+router.put('/:plantaId', plantaController.actualizarPlanta);
 
 // 🗑️ DELETE
-router.delete('/:plantaId', auth, plantaController.eliminarPlanta);
+router.delete('/:plantaId', plantaController.eliminarPlanta);
 
 export default router;
