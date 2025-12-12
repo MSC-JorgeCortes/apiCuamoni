@@ -7,28 +7,8 @@ class EspecieController {
   
   // 🔍 GET - Obtener todas las especies
   obtenerTodasEspecies = asyncHandler(async (req, res, next) => {
-    const { 
-      pagina = 1, 
-      limite = 50, 
-      familia, 
-      origen,
-      sortBy = 'nombreComun',
-      sortOrder = 'asc'
-    } = req.query;
-
-    const skip = (pagina - 1) * limite;
-    
-    let filtro = {};
-    if (familia) filtro.familia = new RegExp(familia, 'i');
-    if (origen) filtro.origen = new RegExp(origen, 'i');
-
-    const sort = {};
-    sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
-
+  
     const especies = await Especie.find()
-      .sort(sort);
-
-    const total = await Especie.countDocuments(filtro);
 
     res.json({especies});
   });
