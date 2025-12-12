@@ -36,16 +36,7 @@ class PlantaController {
     
     const total = await Planta.countDocuments(filtro);
     
-    res.json({
-      success: true,
-      data: plantas,
-      paginacion: {
-        pagina: parseInt(pagina),
-        limite: parseInt(limite),
-        total,
-        paginas: Math.ceil(total / limite)
-      }
-    });
+    res.json({ plantas });
   });
 
   // 🔍 GET - Obtener planta específica con detalles completos

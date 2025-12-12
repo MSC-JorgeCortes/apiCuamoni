@@ -5,7 +5,7 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node --no-deprecation server.js",
+    "start": "nodemon --no-deprecation server.js",
     "dev": "nodemon --no-deprecation server.js",
     "init-atlas": "node --no-deprecation  scripts/init-atlas.js",
     "create-collections": "node --no-deprecation scripts/01-create-collections.js",

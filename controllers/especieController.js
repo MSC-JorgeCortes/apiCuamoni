@@ -25,24 +25,12 @@ class EspecieController {
     const sort = {};
     sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
 
-    const especies = await Especie.find(filtro)
-      .sort(sort)
-      .skip(skip)
-      .limit(parseInt(limite))
-      .select('-cuidadosPorEdad');
+    const especies = await Especie.find()
+      .sort(sort);
 
     const total = await Especie.countDocuments(filtro);
 
-    res.json({
-      success: true,
-      data: especies,
-      paginacion: {
-        pagina: parseInt(pagina),
-        limite: parseInt(limite),
-        total,
-        paginas: Math.ceil(total / limite)
-      }
-    });
+    res.json({especies});
   });
 
   // 🔍 GET - Buscar especies por término
