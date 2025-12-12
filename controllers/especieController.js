@@ -18,7 +18,7 @@ class EspecieController {
       descripcion: especies.descripcion
     }
 
-    res.json({ListaEspecie});
+    res.json(ListaEspecie);
   });
 
   // 🔍 GET - Buscar especies por término
