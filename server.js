@@ -96,6 +96,7 @@ function initializeApp() {
   app.use('/api/especies', especieRoutes);
   app.use('/api/plantas', plantaRoutes);
   app.use('/api/tareas', tareaRoutes);
+  app.get("/api/ping", (req, res) => res.sendStatus(200));
 
   // Ruta de documentación
   app.get('/api', (req, res) => {
