@@ -10,7 +10,15 @@ class EspecieController {
   
     const especies = await Especie.find()
 
-    res.json({especies});
+    ListaEspecie = {
+      nombreCientifico: especies.nombreCientifico,
+      nombreComun: especies.nombreComun,
+      familia: especies.familia,
+      origen: especies.origen,
+      descripcion: especies.descripcion
+    }
+
+    res.json({ListaEspecie});
   });
 
   // 🔍 GET - Buscar especies por término
