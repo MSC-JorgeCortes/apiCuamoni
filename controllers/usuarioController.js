@@ -23,7 +23,7 @@ class UsuarioController {
       // Verificar si el usuario ya existe
       const usuarioExistente = await Usuario.findOne({ email: email });
       if (usuarioExistente) {
-        res.json({error:'El email ya está registrado'});
+        res.json({id: usuarioExistente._id, nombre: usuarioExistente.nombre, email: usuarioExistente.email});
       }else{
         const usuario = new Usuario({ nombre,email });
         await usuario.save();
