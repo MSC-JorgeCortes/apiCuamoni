@@ -19,13 +19,13 @@ class UsuarioController {
   // Registrar usuario
   registrarUsuario = (async (req, res, next) => {
     try {
-      const { nombre, email } = req.body;
+      const { nombre, email, rol } = req.body;
       // Verificar si el usuario ya existe
-      const usuarioExistente = await Usuario.findOne({ email: email });
+      const usuarioExistente = await Usuario.findOne({ email: email , rol: rol ? rol : 'usuario' });
       if (usuarioExistente) {
         res.json({id: usuarioExistente._id, nombre: usuarioExistente.nombre, email: usuarioExistente.email});
       }else{
-        const usuario = new Usuario({ nombre,email });
+        const usuario = new Usuario({ nombre,email, rol:rol ? rol : 'usuario' });
         await usuario.save();
         console.log('Usuario registrado:', usuario._id);
         res.json({id: usuario._id, nombre: usuario.nombre, email: usuario.email});
