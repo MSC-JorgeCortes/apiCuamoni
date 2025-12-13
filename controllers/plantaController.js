@@ -8,6 +8,13 @@ import { AppError, asyncHandler } from '../middleware/errorHandler.js';
 
 class PlantaController {
   
+  // Obtener lista simplificada de plantas
+  obtenerPlantasParaLista = asyncHandler(async (req, res, next) => {
+    const plantas = await Planta.find()
+      .populate('usuarioId', 'nombre email');
+    res.json({ plantas });
+  });
+
   // 🔍 GET - Obtener todas las plantas de un usuario
   obtenerPlantasUsuario = asyncHandler(async (req, res, next) => {
     const { usuarioId } = req.params;
