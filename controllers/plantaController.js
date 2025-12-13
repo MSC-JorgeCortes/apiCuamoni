@@ -131,6 +131,7 @@ class PlantaController {
   // 📝 POST - Crear nueva planta
   crearPlanta = asyncHandler(async (req, res, next) => {
     const { usuarioId, especieId, nombrePersonalizado, fechaSiembra, ubicacionSiembra } = req.body;
+    console.log('Crear planta - datos recibidos:', req.body);
     
     const especie = await Especie.findById(especieId);
     if (!especie) {
