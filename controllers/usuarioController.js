@@ -28,7 +28,7 @@ class UsuarioController {
         const usuario = new Usuario({ nombre,email });
         await usuario.save();
         console.log('Usuario registrado:', usuario._id);
-        res.json(usuario._id);
+        res.json({id: usuario._id, nombre: usuario.nombre, email: usuario.email});
       }
     } catch (error) {
       res.json({error: 'Error al registrar usuario'});
