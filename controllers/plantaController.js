@@ -152,7 +152,7 @@ class PlantaController {
       usuarioId,
       especieId,
       nombrePersonalizado,
-      fechaSiembra: new Date(fechaSiembra),
+      fechaSiembra: new Date(),
       ubicacionSiembra,
       estadoActual: {
         salud: 'Bueno',
