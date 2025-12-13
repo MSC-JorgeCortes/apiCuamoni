@@ -1,6 +1,7 @@
 // scripts/03-insert-especies.js
 import { Especie } from '../config/database.js';
 
+
 const especiesData = [
   {
     nombreCientifico: "Platanus mexicana",

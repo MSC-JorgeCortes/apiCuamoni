@@ -136,7 +136,12 @@ class PlantaController {
     if (!especie) {
       throw new AppError('Especie no encontrada', 404);
     }
-
+    //verificar que la planta no exista ya para el usuario
+    const plantaExistente = await Planta.findOne({ usuarioId, especieId, nombrePersonalizado });
+    if (plantaExistente) {
+      res.status(400).json({error:'Ya existe una planta con ese nombre para esta especie y usuario'});
+      return;
+    }
     const nuevaPlanta = new Planta({
       usuarioId,
       especieId,
@@ -165,9 +170,9 @@ class PlantaController {
       especieId: nuevaPlanta.especieId,
       nombrePersonalizado: nuevaPlanta.nombrePersonalizado,
       estadoActual: nuevaPlanta.estadoActual,
-      proximoRiego: nuevaPlanta.alertasConfiguradas.proximoRiego,
-      proximaFertilizacion: nuevaPlanta.alertasConfiguradas.proximaFertilizacion,
-      proximaPoda: nuevaPlanta.alertasConfiguradas.proximaPoda
+      proximoRiego: nuevaPlanta.alertasConfiguradas.proximoRiego ? nuevaPlanta.alertasConfiguradas.proximoRiego : '',
+      proximaFertilizacion: nuevaPlanta.alertasConfiguradas.proximaFertilizacion ? nuevaPlanta.alertasConfiguradas.proximaFertilizacion : '',
+      proximaPoda: nuevaPlanta.alertasConfiguradas.proximaPoda ? nuevaPlanta.alertasConfiguradas.proximaPoda : ''
     };
     res.status(201).json(datosPlantas);
   });

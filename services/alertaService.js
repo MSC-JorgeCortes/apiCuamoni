@@ -139,6 +139,8 @@ class AlertaService {
       planta.alertasConfiguradas.proximaPoda = proximaPoda;
       await planta.save();
     }
+
+    
   }
 
   async recalcularAlertas(plantaId, tipoTarea) {
