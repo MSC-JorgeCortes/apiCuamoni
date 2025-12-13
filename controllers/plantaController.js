@@ -8,42 +8,24 @@ import { AppError, asyncHandler } from '../middleware/errorHandler.js';
 
 class PlantaController {
   
-  // Obtener lista simplificada de plantas
-  obtenerPlantasParaLista = asyncHandler(async (req, res, next) => {
-    const plantas = await Planta.find()
-      .populate('usuarioId', 'nombre email');
-    res.json({ plantas });
-  });
 
   // 🔍 GET - Obtener todas las plantas de un usuario
   obtenerPlantasUsuario = asyncHandler(async (req, res, next) => {
-    const { usuarioId } = req.params;
-    const { pagina = 1, limite = 10, estadoSalud, especie } = req.query;
-    
-    const skip = (pagina - 1) * limite;
-    let filtro = { usuarioId };
-    
-    // Filtros opcionales
-    if (estadoSalud) filtro['estadoActual.salud'] = estadoSalud;
-    if (especie) {
-      const especies = await Especie.find({ 
-        $or: [
-          { nombreComun: new RegExp(especie, 'i') },
-          { nombreCientifico: new RegExp(especie, 'i') }
-        ]
-      });
-      filtro.especieId = { $in: especies.map(e => e._id) };
-    }
-    
-    const plantas = await Planta.find(filtro)
+    const { usuarioId } = req.params; 
+    const plantas = await Planta.findOne({usuarioId: usuarioId})
       .populate('especieId', 'nombreComun nombreCientifico familia')
-      .sort({ fechaCreacion: -1 })
-      .skip(skip)
-      .limit(parseInt(limite));
-    
-    const total = await Planta.countDocuments(filtro);
-    
-    res.json({ plantas });
+      .sort({ fechaCreacion: -1 });
+    console.log(plantas);
+    const datosPlantas = {
+      nombre: plantas.nombrePersonalizado,
+      especie: plantas.especieId.nombreComun,
+      estadoActual: plantas.estadoActual.salud,
+      proximoaRiego: plantas.alertasConfiguradas.proximoRiego ? plantas.alertasConfiguradas.proximoRiego : '',
+      proximaFertilizacion: plantas.alertasConfiguradas.proximaFertilizacion ? plantas.alertasConfiguradas.proximaFertilizacion : '',
+      proximaPoda: plantas.alertasConfiguradas.proximaPoda ? plantas.alertasConfiguradas.proximaPoda : ''
+    }
+
+    res.json(datosPlantas);
   });
 
   // 🔍 GET - Obtener planta específica con detalles completos
@@ -159,7 +141,7 @@ class PlantaController {
       usuarioId,
       especieId,
       nombrePersonalizado,
-      fechaSiembra: new Date(),
+      fechaSiembra: fechaSiembra ? new Date(fechaSiembra) : new Date(),
       ubicacionSiembra,
       estadoActual: {
         salud: 'Bueno',
@@ -175,37 +157,21 @@ class PlantaController {
     await AlertaService.configurarAlertasIniciales(nuevaPlanta);
 
     // Populate para respuesta
-    await nuevaPlanta.populate('especieId', 'nombreComun nombreCientifico');
+    //await nuevaPlanta.populate('especieId', 'nombreComun nombreCientifico');
 
-    res.status(201).json({
-      success: true,
-      message: 'Planta creada exitosamente',
-      data: nuevaPlanta
-    });
+    const datosPlantas = {
+      id: nuevaPlanta._id,
+      usuarioId: nuevaPlanta.usuarioId,
+      especieId: nuevaPlanta.especieId,
+      nombrePersonalizado: nuevaPlanta.nombrePersonalizado,
+      estadoActual: nuevaPlanta.estadoActual,
+      proximoRiego: nuevaPlanta.alertasConfiguradas.proximoRiego,
+      proximaFertilizacion: nuevaPlanta.alertasConfiguradas.proximaFertilizacion,
+      proximaPoda: nuevaPlanta.alertasConfiguradas.proximaPoda
+    };
+    res.status(201).json(datosPlantas);
   });
-  // que datos me devuelve al crear una planta?
-  /*
-    {
-      success: true,
-      message: 'Planta creada exitosamente',
-      data: {
-        _id: '648a1f4e2f8b9c0012345678',
-        usuarioId: '648a1e9c2f8b9c0012345677',
-        especieId: {
-          _id: '648a1d5b2f8b9c0012345676',
-          nombreComun: 'Guácimo blanco',
-          nombreCientifico: 'Inga vera'
-        },
-        nombrePersonalizado: 'mi macuilin hermoso',
-        fechaSiembra: '2024-01-15T00:00:00.000Z',
-        ubicacionSiembra: {
-          tipo: 'Jardin',
-          descripcion: 'Jardín de mi casa',
-          coordenadas: { type: 'Point', coordinates: [ -96.3514, 18.4589 ] },
-        }
-      }
-    }
-  */
+  
   
   // 📝 POST - Registrar crecimiento
   registrarCrecimiento = asyncHandler(async (req, res, next) => {

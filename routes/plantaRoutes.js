@@ -6,13 +6,13 @@ import { validarPlanta } from '../middleware/validation.js';
 const router = express.Router();
 
 // 🔍 GET
-router.get('/lista', plantaController.obtenerPlantasParaLista);
+
 router.get('/usuario/:usuarioId', plantaController.obtenerPlantasUsuario);
 router.get('/:plantaId', plantaController.obtenerPlantaDetallada);
 router.get('/usuario/:usuarioId/estadisticas', plantaController.obtenerEstadisticas);
 
 // 📝 POST
-router.post('/', validarPlanta, plantaController.crearPlanta);
+router.post('/', plantaController.crearPlanta);
 router.post('/:plantaId/crecimiento', plantaController.registrarCrecimiento);
 
 // ✏️ PUT
